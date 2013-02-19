@@ -1,20 +1,20 @@
-package com.imasson.droidshake.util;
+ï»¿package com.imasson.droidshake.util;
 
 import android.graphics.Color;
 
 /**
- * <p>ÓÃÓÚ½øĞĞÑÕÉ«Öµ»»ËãµÄ¹¤¾ßÀà</p>
+ * <p>ç”¨äºè¿›è¡Œé¢œè‰²å€¼æ¢ç®—çš„å·¥å…·ç±»</p>
  * 
- * @version 1.0 °üº¬Í¸Ã÷¶ÈĞŞ¸ÄºÍµ÷ÕûÑÕÉ«ÁÁ¶ÈµÄ¹¤¾ß·½·¨
+ * @version 1.0 åŒ…å«é€æ˜åº¦ä¿®æ”¹å’Œè°ƒæ•´é¢œè‰²äº®åº¦çš„å·¥å…·æ–¹æ³•
  */
 public class ColorUtils {
 	
 	/**
-	 * ¸ü¸ÄÑÕÉ«ÖµµÄÍ¸Ã÷¶È
-	 * @param color Ô­À´µÄÑÕÉ«Öµ
-	 * @param transparent Í¸Ã÷¶È<code>[0,255]</code>£¬
-	 * 0±íÊ¾ÍêÈ«Í¸Ã÷£¬255±íÊ¾ÍêÈ«²»Í¸Ã÷
-	 * @return ÉèÖÃÍ¸Ã÷¶ÈºóµÄÑÕÉ«Öµ
+	 * æ›´æ”¹é¢œè‰²å€¼çš„é€æ˜åº¦
+	 * @param color åŸæ¥çš„é¢œè‰²å€¼
+	 * @param transparent é€æ˜åº¦<code>[0,255]</code>ï¼Œ
+	 * 0è¡¨ç¤ºå®Œå…¨é€æ˜ï¼Œ255è¡¨ç¤ºå®Œå…¨ä¸é€æ˜
+	 * @return è®¾ç½®é€æ˜åº¦åçš„é¢œè‰²å€¼
 	 */
 	public static int alterColorTransparnet(int color, int transparent) {
 		int transValue = (transparent & 0x000000ff) << 24;
@@ -23,11 +23,11 @@ public class ColorUtils {
 	}
 	
 	/**
-	 * ¸ü¸ÄÑÕÉ«ÖµµÄÍ¸Ã÷¶È
-	 * @param color Ô­À´µÄÑÕÉ«Öµ
-	 * @param ratio Í¸Ã÷¶È±ÈÀı<code>[0.0,1.0]</code>£¬
-	 * 0±íÊ¾ÍêÈ«Í¸Ã÷£¬1±íÊ¾ÍêÈ«²»Í¸Ã÷
-	 * @return ÉèÖÃÍ¸Ã÷¶ÈºóµÄÑÕÉ«Öµ
+	 * æ›´æ”¹é¢œè‰²å€¼çš„é€æ˜åº¦
+	 * @param color åŸæ¥çš„é¢œè‰²å€¼
+	 * @param ratio é€æ˜åº¦æ¯”ä¾‹<code>[0.0,1.0]</code>ï¼Œ
+	 * 0è¡¨ç¤ºå®Œå…¨é€æ˜ï¼Œ1è¡¨ç¤ºå®Œå…¨ä¸é€æ˜
+	 * @return è®¾ç½®é€æ˜åº¦åçš„é¢œè‰²å€¼
 	 */
 	public static int alterColorTransparnet(int color, float ratio) {
 		int transValue = (int)(0x000000ff * ratio) << 24;
@@ -36,10 +36,10 @@ public class ColorUtils {
 	}
 	
 	/**
-	 * Ôö¼ÓÑÕÉ«ÖµµÄÁÁ¶È£¬ÁÁ¶ÈÎª¸ºÖµ¼´Îª¼õÉÙÁÁ¶È
-	 * @param color Ô­À´µÄÑÕÉ«Öµ
-	 * @param delta ÒªÔö¼ÓµÄÁÁ¶ÈÖµ[-255,255]
-	 * @return ĞŞ¸ÄºóµÄÑÕÉ«Öµ
+	 * å¢åŠ é¢œè‰²å€¼çš„äº®åº¦ï¼Œäº®åº¦ä¸ºè´Ÿå€¼å³ä¸ºå‡å°‘äº®åº¦
+	 * @param color åŸæ¥çš„é¢œè‰²å€¼
+	 * @param delta è¦å¢åŠ çš„äº®åº¦å€¼[-255,255]
+	 * @return ä¿®æ”¹åçš„é¢œè‰²å€¼
 	 */
 	public static int addColorBrightness(int color, int delta) {
 		int a = Color.alpha(color);

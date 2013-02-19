@@ -1,4 +1,4 @@
-package com.imasson.droidshake.util;
+ï»¿package com.imasson.droidshake.util;
 
 import java.io.InputStream;
 
@@ -7,22 +7,22 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 /**
- * <p>ÓÃÓÚ½øĞĞÎ»Í¼¶ÔÏó{@link Bitmap}µÄ±à½âÂë¡¢Í¼ÏñµÄ¶ÁÈ¡ºÍ±£´æµÈ²Ù×÷µÄ¹¤¾ßÀà¡£</p>
- * <p>Ä¿Ç°Ö§³ÖµÄÌØĞÔÈçÏÂ£º</p>
+ * <p>ç”¨äºè¿›è¡Œä½å›¾å¯¹è±¡{@link Bitmap}çš„ç¼–è§£ç ã€å›¾åƒçš„è¯»å–å’Œä¿å­˜ç­‰æ“ä½œçš„å·¥å…·ç±»ã€‚</p>
+ * <p>ç›®å‰æ”¯æŒçš„ç‰¹æ€§å¦‚ä¸‹ï¼š</p>
  * <ul>
- * <li>Ö§³Ö´ÓÎÄ¼ş¡¢×Ö½ÚÊı×éºÍ{@link InputStream}ÖĞ¶ÁÈ¡Í¼Ïñ</li>
- * <li>Ö§³Ö¸ù¾İ¿í¸ß»ò×ÜÏñËØÊıÁ¿ÏŞÖÆÎ»Í¼µÄÉú³É´óĞ¡</li>
- * <li>Ìá¹©½öÓÃÓÚ¶ÈÁ¿Î»Í¼¿í¸ßµÄ·½·¨</li>
+ * <li>æ”¯æŒä»æ–‡ä»¶ã€å­—èŠ‚æ•°ç»„å’Œ{@link InputStream}ä¸­è¯»å–å›¾åƒ</li>
+ * <li>æ”¯æŒæ ¹æ®å®½é«˜æˆ–æ€»åƒç´ æ•°é‡é™åˆ¶ä½å›¾çš„ç”Ÿæˆå¤§å°</li>
+ * <li>æä¾›ä»…ç”¨äºåº¦é‡ä½å›¾å®½é«˜çš„æ–¹æ³•</li>
  * </ul>
- * <p>¸Ã¹¤¾ßÀàÒÑ¶Ô¸÷ÖÖ¿ÉÄÜ³öÏÖµÄÒì³£×÷ÁË·â×°ºÍ±£»¤£¬µ÷ÓÃÕß½öĞèÔÚÊä³öÎªnullÊ±×÷´¦Àí¡£</p>
+ * <p>è¯¥å·¥å…·ç±»å·²å¯¹å„ç§å¯èƒ½å‡ºç°çš„å¼‚å¸¸ä½œäº†å°è£…å’Œä¿æŠ¤ï¼Œè°ƒç”¨è€…ä»…éœ€åœ¨è¾“å‡ºä¸ºnullæ—¶ä½œå¤„ç†ã€‚</p>
  * 
- * @version 1.0 °üº¬¶àÖÖBitmap¶ÁÈ¡ºÍ±£´æ·½Ê½µÄ¹¤¾ß·½·¨
+ * @version 1.0 åŒ…å«å¤šç§Bitmapè¯»å–å’Œä¿å­˜æ–¹å¼çš„å·¥å…·æ–¹æ³•
  */
 public class BitmapUtils {
 	private static final String TAG = "BitmapUtil";
 	
 	/**
-	 * Ä¬ÈÏµÄÎ»Í¼Í¼Ïñ½âÂëµÄ×î´óÏñËØÊıÏŞÖÆ (2^19)£¬Ô¼µÈÓÚ720*720
+	 * é»˜è®¤çš„ä½å›¾å›¾åƒè§£ç çš„æœ€å¤§åƒç´ æ•°é™åˆ¶ (2^19)ï¼Œçº¦ç­‰äº720*720
 	 */
 	public static final int DEFALUT_BITMAP_MAX_PIXELS = 524288;
 	
@@ -30,9 +30,9 @@ public class BitmapUtils {
 	
 	
 	/**
-     * ´ÓÖ¸¶¨µÄÎÄ¼şÖĞ»ñÈ¡Î»Í¼Í¼Ïñ
-     * @param filePath Í¼ÏñÎÄ¼şµÄÍêÕûÂ·¾¶
-     * @return ÓëÔ­Í¼´óĞ¡ÏàÍ¬µÄÎ»Í¼Í¼Ïñ
+     * ä»æŒ‡å®šçš„æ–‡ä»¶ä¸­è·å–ä½å›¾å›¾åƒ
+     * @param filePath å›¾åƒæ–‡ä»¶çš„å®Œæ•´è·¯å¾„
+     * @return ä¸åŸå›¾å¤§å°ç›¸åŒçš„ä½å›¾å›¾åƒ
      */
 	public static Bitmap getBitmap(String filePath) {
 		if (filePath == null) {
@@ -54,11 +54,11 @@ public class BitmapUtils {
 	}
 	
 	/**
-	 * ´ÓÖ¸¶¨µÄÎÄ¼şÖĞ»ñÈ¡Î»Í¼Í¼Ïñ
-	 * @param filePath Í¼ÏñÎÄ¼şµÄÍêÕûÂ·¾¶
-	 * @param maxWidth ×î´ó¿í¶È
-	 * @param maxHeight ×î´ó¸ß¶È
-	 * @return ¸ù¾İÖ¸¶¨µÄÎ»Í¼×î´ó¿í¶ÈºÍ¸ß¶ÈÉú³ÉÎ»Í¼
+	 * ä»æŒ‡å®šçš„æ–‡ä»¶ä¸­è·å–ä½å›¾å›¾åƒ
+	 * @param filePath å›¾åƒæ–‡ä»¶çš„å®Œæ•´è·¯å¾„
+	 * @param maxWidth æœ€å¤§å®½åº¦
+	 * @param maxHeight æœ€å¤§é«˜åº¦
+	 * @return æ ¹æ®æŒ‡å®šçš„ä½å›¾æœ€å¤§å®½åº¦å’Œé«˜åº¦ç”Ÿæˆä½å›¾
 	 */
 	public static Bitmap getBitmap(String filePath, int maxWidth, int maxHeight) {
 		if (filePath == null) {
@@ -77,7 +77,7 @@ public class BitmapUtils {
 		Bitmap retBitmap = null;
 		
 		try {
-			// È¡Í¼ÏñsampleSizeµÄ³õÊ¼Öµ
+			// å–å›¾åƒsampleSizeçš„åˆå§‹å€¼
 			BitmapFactory.Options options = new BitmapFactory.Options();
 			options.inJustDecodeBounds = true;
 			BitmapFactory.decodeFile(filePath, options);
@@ -86,15 +86,15 @@ public class BitmapUtils {
                 return null;
             }
 			
-			// ¿í¶È±È
+			// å®½åº¦æ¯”
 			int ratioWidth = (int)((double)options.outWidth / maxWidth + 0.5);
-			// ¸ß¶È±È
+			// é«˜åº¦æ¯”
 			int ratioHeight = (int)((double)options.outHeight / maxHeight + 0.5);
 			
 			int max = ratioHeight > ratioWidth ? ratioHeight : ratioWidth;
 			int sampleSize = max <= 1 ? 1 : max;
 			
-			// Í¼Æ¬ÏñËØµÄ¿íºÍ¸ßÈ¡Ô­À´µÄ1/sampleSize
+			// å›¾ç‰‡åƒç´ çš„å®½å’Œé«˜å–åŸæ¥çš„1/sampleSize
 			options.inSampleSize = sampleSize;
 			options.inJustDecodeBounds = false;
 		
@@ -111,10 +111,10 @@ public class BitmapUtils {
 	}
 	
 	/**
-	 * ´ÓÖ¸¶¨µÄÎÄ¼şÖĞ»ñÈ¡Î»Í¼Í¼Ïñ
-	 * @param filePath Í¼ÏñÎÄ¼şµÄÍêÕûÂ·¾¶
-	 * @param maxNumOfPixels Í¼ÏñµÄ×î´óÏñËØÊıÁ¿£¬ÈôÔ­Í¼³¬¹ı¸ÃÖµ½«»á×Ô¶¯ËõĞ¡Êä³öÍ¼Ïñ
-     * @return ¸ù¾İÖ¸¶¨×î´óÏñËØÊıÁ¿Éú³ÉµÄÎ»Í¼
+	 * ä»æŒ‡å®šçš„æ–‡ä»¶ä¸­è·å–ä½å›¾å›¾åƒ
+	 * @param filePath å›¾åƒæ–‡ä»¶çš„å®Œæ•´è·¯å¾„
+	 * @param maxNumOfPixels å›¾åƒçš„æœ€å¤§åƒç´ æ•°é‡ï¼Œè‹¥åŸå›¾è¶…è¿‡è¯¥å€¼å°†ä¼šè‡ªåŠ¨ç¼©å°è¾“å‡ºå›¾åƒ
+     * @return æ ¹æ®æŒ‡å®šæœ€å¤§åƒç´ æ•°é‡ç”Ÿæˆçš„ä½å›¾
 	 */
 	public static Bitmap getBitmap(String filePath, int maxNumOfPixels) {
 		if (filePath == null) {
@@ -127,7 +127,7 @@ public class BitmapUtils {
     	}
 		
 		try {
-			// È¡Í¼ÏñsampleSizeµÄ³õÊ¼Öµ
+			// å–å›¾åƒsampleSizeçš„åˆå§‹å€¼
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
             BitmapFactory.decodeFile(filePath, options);
@@ -136,7 +136,7 @@ public class BitmapUtils {
                 return null;
             }
             
-            // Í¼Æ¬ÏñËØµÄ¿íºÍ¸ßÈ¡Ô­À´µÄ1/sampleSize
+            // å›¾ç‰‡åƒç´ çš„å®½å’Œé«˜å–åŸæ¥çš„1/sampleSize
             options.inSampleSize = computeSampleSize(options, UNCONSTRAINED, maxNumOfPixels);
             
             options.inJustDecodeBounds = false;
@@ -156,9 +156,9 @@ public class BitmapUtils {
 	
 	
 	/**
-	 * ´Ó×Ö½ÚÊı×éÖĞ»ñÈ¡Î»Í¼Í¼Ïñ
-	 * @param imageBytes Î»Í¼µÄ×Ö½ÚÊı×é
-	 * @return ÓëÔ­Í¼´óĞ¡ÏàÍ¬µÄÎ»Í¼Í¼Ïñ
+	 * ä»å­—èŠ‚æ•°ç»„ä¸­è·å–ä½å›¾å›¾åƒ
+	 * @param imageBytes ä½å›¾çš„å­—èŠ‚æ•°ç»„
+	 * @return ä¸åŸå›¾å¤§å°ç›¸åŒçš„ä½å›¾å›¾åƒ
 	 */
 	public static Bitmap getBitmap(byte[] imageBytes) {
 		if (imageBytes == null || imageBytes.length == 0) {
@@ -178,11 +178,11 @@ public class BitmapUtils {
 	}
 	
 	/**
-     * ´Ó×Ö½ÚÊı×éÖĞ»ñÈ¡Î»Í¼Í¼Ïñ
-     * @param imageBytes Î»Í¼µÄ×Ö½ÚÊı×é
-     * @param maxWidth ×î´ó¿í¶È
-     * @param maxHeight ×î´ó¸ß¶È
-     * @return ¸ù¾İÖ¸¶¨µÄÎ»Í¼×î´ó¿í¶ÈºÍ¸ß¶ÈÉú³ÉÎ»Í¼
+     * ä»å­—èŠ‚æ•°ç»„ä¸­è·å–ä½å›¾å›¾åƒ
+     * @param imageBytes ä½å›¾çš„å­—èŠ‚æ•°ç»„
+     * @param maxWidth æœ€å¤§å®½åº¦
+     * @param maxHeight æœ€å¤§é«˜åº¦
+     * @return æ ¹æ®æŒ‡å®šçš„ä½å›¾æœ€å¤§å®½åº¦å’Œé«˜åº¦ç”Ÿæˆä½å›¾
      */
     public static Bitmap getBitmap(byte[] imageBytes, int maxWidth, int maxHeight) {
     	if (imageBytes == null || imageBytes.length == 0) {
@@ -201,7 +201,7 @@ public class BitmapUtils {
         Bitmap retBitmap = null;
         
         try {
-        	// È¡Í¼ÏñsampleSizeµÄ³õÊ¼Öµ
+        	// å–å›¾åƒsampleSizeçš„åˆå§‹å€¼
         	BitmapFactory.Options options = new BitmapFactory.Options();
 	        options.inJustDecodeBounds = true;
 	        BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length, options);
@@ -210,9 +210,9 @@ public class BitmapUtils {
                 return null;
             }
 	        
-	        // ¿í¶È±È
+	        // å®½åº¦æ¯”
 	        int ratioWidth = (int)((double)options.outWidth / maxWidth + 0.5);
-	        // ¸ß¶È±È
+	        // é«˜åº¦æ¯”
 	        int ratioHeight = (int)((double)options.outHeight / maxHeight + 0.5);
 	        
 	        int max = ratioHeight > ratioWidth ? ratioHeight : ratioWidth;
@@ -224,7 +224,7 @@ public class BitmapUtils {
 	            sampleSize = max;
 	        }
 	        
-	        // Í¼Æ¬ÏñËØµÄ¿íºÍ¸ßÈ¡Ô­À´µÄ1/sampleSize
+	        // å›¾ç‰‡åƒç´ çš„å®½å’Œé«˜å–åŸæ¥çš„1/sampleSize
 	        options.inSampleSize = sampleSize;
 	        options.inJustDecodeBounds = false;
         
@@ -239,10 +239,10 @@ public class BitmapUtils {
     }
     
     /**
-     * ´Ó×Ö½ÚÊı×éÖĞ»ñÈ¡Î»Í¼Í¼Ïñ
-     * @param imageBytes Î»Í¼µÄ×Ö½ÚÊı×é
-     * @param maxNumOfPixels Í¼ÏñµÄ×î´óÏñËØÊıÁ¿£¬ÈôÔ­Í¼³¬¹ı¸ÃÖµ½«»á×Ô¶¯ËõĞ¡Êä³öÍ¼Ïñ
-     * @return ¸ù¾İÖ¸¶¨×î´óÏñËØÊıÁ¿Éú³ÉµÄÎ»Í¼
+     * ä»å­—èŠ‚æ•°ç»„ä¸­è·å–ä½å›¾å›¾åƒ
+     * @param imageBytes ä½å›¾çš„å­—èŠ‚æ•°ç»„
+     * @param maxNumOfPixels å›¾åƒçš„æœ€å¤§åƒç´ æ•°é‡ï¼Œè‹¥åŸå›¾è¶…è¿‡è¯¥å€¼å°†ä¼šè‡ªåŠ¨ç¼©å°è¾“å‡ºå›¾åƒ
+     * @return æ ¹æ®æŒ‡å®šæœ€å¤§åƒç´ æ•°é‡ç”Ÿæˆçš„ä½å›¾
      */
     public static Bitmap getBitmap(byte[] imageBytes, int maxNumOfPixels) {
     	if (imageBytes == null || imageBytes.length == 0) {
@@ -255,7 +255,7 @@ public class BitmapUtils {
     	}
     	
         try {
-        	// È¡Í¼ÏñsampleSizeµÄ³õÊ¼Öµ
+        	// å–å›¾åƒsampleSizeçš„åˆå§‹å€¼
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
             BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length, options);
@@ -264,7 +264,7 @@ public class BitmapUtils {
                 return null;
             }
             
-            // Í¼Æ¬ÏñËØµÄ¿íºÍ¸ßÈ¡Ô­À´µÄ1/sampleSize
+            // å›¾ç‰‡åƒç´ çš„å®½å’Œé«˜å–åŸæ¥çš„1/sampleSize
             options.inSampleSize = computeSampleSize(options, UNCONSTRAINED, maxNumOfPixels);
             
             options.inJustDecodeBounds = false;
@@ -282,9 +282,9 @@ public class BitmapUtils {
     
     
     /**
-     * ´ÓÊı¾İÊäÈëÁ÷ÖĞ»ñÈ¡Î»Í¼Í¼Ïñ
-     * @param is Í¼ÏñÎÄ¼şµÄÊı¾İÊäÈëÁ÷
-     * @return ÓëÔ­Í¼´óĞ¡ÏàÍ¬µÄÎ»Í¼Í¼Ïñ
+     * ä»æ•°æ®è¾“å…¥æµä¸­è·å–ä½å›¾å›¾åƒ
+     * @param is å›¾åƒæ–‡ä»¶çš„æ•°æ®è¾“å…¥æµ
+     * @return ä¸åŸå›¾å¤§å°ç›¸åŒçš„ä½å›¾å›¾åƒ
      */
     public static Bitmap getBitmap(InputStream is) {
     	if (is == null) {
@@ -304,11 +304,11 @@ public class BitmapUtils {
     }
     
     /**
-	 * ´ÓÊı¾İÊäÈëÁ÷ÖĞ»ñÈ¡Î»Í¼Í¼Ïñ
-	 * @param is Í¼ÏñÎÄ¼şµÄÊı¾İÊäÈëÁ÷
-	 * @param maxWidth ×î´ó¿í¶È
-	 * @param maxHeight ×î´ó¸ß¶È
-	 * @return ¸ù¾İÖ¸¶¨µÄÎ»Í¼×î´ó¿í¶ÈºÍ¸ß¶ÈÉú³ÉÎ»Í¼
+	 * ä»æ•°æ®è¾“å…¥æµä¸­è·å–ä½å›¾å›¾åƒ
+	 * @param is å›¾åƒæ–‡ä»¶çš„æ•°æ®è¾“å…¥æµ
+	 * @param maxWidth æœ€å¤§å®½åº¦
+	 * @param maxHeight æœ€å¤§é«˜åº¦
+	 * @return æ ¹æ®æŒ‡å®šçš„ä½å›¾æœ€å¤§å®½åº¦å’Œé«˜åº¦ç”Ÿæˆä½å›¾
 	 */
     public static Bitmap getBitmap(InputStream is, int maxWidth, int maxHeight) {
     	if (is == null) {
@@ -327,7 +327,7 @@ public class BitmapUtils {
     	Bitmap retBitmap = null;
         
         try {
-        	// È¡Í¼ÏñsampleSizeµÄ³õÊ¼Öµ
+        	// å–å›¾åƒsampleSizeçš„åˆå§‹å€¼
         	BitmapFactory.Options options = new BitmapFactory.Options();
 	        options.inJustDecodeBounds = true;
 	        BitmapFactory.decodeStream(is, null, options);
@@ -336,9 +336,9 @@ public class BitmapUtils {
                 return null;
             }
 	        
-	        // ¿í¶È±È
+	        // å®½åº¦æ¯”
 	        int ratioWidth = (int)((double)options.outWidth / maxWidth + 0.5);
-	        // ¸ß¶È±È
+	        // é«˜åº¦æ¯”
 	        int ratioHeight = (int)((double)options.outHeight / maxHeight + 0.5);
 	        
 	        int max = ratioHeight > ratioWidth ? ratioHeight : ratioWidth;
@@ -350,7 +350,7 @@ public class BitmapUtils {
 	            sampleSize = max;
 	        }
 	        
-	        // Í¼Æ¬ÏñËØµÄ¿íºÍ¸ßÈ¡Ô­À´µÄ1/sampleSize
+	        // å›¾ç‰‡åƒç´ çš„å®½å’Œé«˜å–åŸæ¥çš„1/sampleSize
 	        options.inSampleSize = sampleSize;
 	        options.inJustDecodeBounds = false;
 	        
@@ -365,10 +365,10 @@ public class BitmapUtils {
     }
     
     /**
-     * ´ÓÊı¾İÊäÈëÁ÷ÖĞ»ñÈ¡Î»Í¼Í¼Ïñ
-     * @param is Í¼ÏñÎÄ¼şµÄÊı¾İÊäÈëÁ÷
-     * @param maxNumOfPixels Í¼ÏñµÄ×î´óÏñËØÊıÁ¿£¬ÈôÔ­Í¼³¬¹ı¸ÃÖµ½«»á×Ô¶¯ËõĞ¡Êä³öÍ¼Ïñ
-     * @return ¸ù¾İÖ¸¶¨×î´óÏñËØÊıÁ¿Éú³ÉµÄÎ»Í¼
+     * ä»æ•°æ®è¾“å…¥æµä¸­è·å–ä½å›¾å›¾åƒ
+     * @param is å›¾åƒæ–‡ä»¶çš„æ•°æ®è¾“å…¥æµ
+     * @param maxNumOfPixels å›¾åƒçš„æœ€å¤§åƒç´ æ•°é‡ï¼Œè‹¥åŸå›¾è¶…è¿‡è¯¥å€¼å°†ä¼šè‡ªåŠ¨ç¼©å°è¾“å‡ºå›¾åƒ
+     * @return æ ¹æ®æŒ‡å®šæœ€å¤§åƒç´ æ•°é‡ç”Ÿæˆçš„ä½å›¾
      */
     public static Bitmap getBitmap(InputStream is, int maxNumOfPixels) {
     	if (is == null) {
@@ -381,7 +381,7 @@ public class BitmapUtils {
     	}
     	
     	try {
-    		// È¡Í¼ÏñsampleSizeµÄ³õÊ¼Öµ
+    		// å–å›¾åƒsampleSizeçš„åˆå§‹å€¼
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
             BitmapFactory.decodeStream(is, null, options);
@@ -390,7 +390,7 @@ public class BitmapUtils {
                 return null;
             }
             
-            // Í¼Æ¬ÏñËØµÄ¿íºÍ¸ßÈ¡Ô­À´µÄ1/sampleSize
+            // å›¾ç‰‡åƒç´ çš„å®½å’Œé«˜å–åŸæ¥çš„1/sampleSize
             options.inSampleSize = computeSampleSize(options, UNCONSTRAINED, maxNumOfPixels);
             
             options.inJustDecodeBounds = false;
@@ -408,11 +408,11 @@ public class BitmapUtils {
     
     
     /**
-     * ¸ù¾İÍ¼ÏñµÄ´óĞ¡£¬Ê¹ÓÃÄ¬ÈÏÍ¼ÏñÏŞÖÆ£¨²»Ö¸¶¨±ä³¤£¬×î´óÏñËØ²ÉÓÃ
-     * {@link #DEFALUT_BITMAP_MAX_PIXELS}£©£¬¼ÆËã³öÒªËõ·ÅµÄÍ¼ÏñµÄ±ÈÀı
-     * @param width Í¼ÏñµÄ¿í¶È
-     * @param height Í¼ÏñµÄ¸ß¶È
-     * @return Ëõ·Å±ÈÀı£¨N·ÖÖ®Ò»£©
+     * æ ¹æ®å›¾åƒçš„å¤§å°ï¼Œä½¿ç”¨é»˜è®¤å›¾åƒé™åˆ¶ï¼ˆä¸æŒ‡å®šå˜é•¿ï¼Œæœ€å¤§åƒç´ é‡‡ç”¨
+     * {@link #DEFALUT_BITMAP_MAX_PIXELS}ï¼‰ï¼Œè®¡ç®—å‡ºè¦ç¼©æ”¾çš„å›¾åƒçš„æ¯”ä¾‹
+     * @param width å›¾åƒçš„å®½åº¦
+     * @param height å›¾åƒçš„é«˜åº¦
+     * @return ç¼©æ”¾æ¯”ä¾‹ï¼ˆNåˆ†ä¹‹ä¸€ï¼‰
      */
     public static int computeSampleSize(int width, int height) {
     	return computeSampleSize(width, height, 
@@ -420,11 +420,11 @@ public class BitmapUtils {
     }
     
     /**
-     * ¸ù¾İÍ¼ÏñµÄÊôĞÔºÍ×î´óÏñËØÖµ£¬¾«È·¼ÆËãÒªËõ·ÅµÄÍ¼ÏñµÄ±ÈÀı
-     * @param options Í¼ÏñµÄÉèÖÃÊôĞÔ£¨ÒÑDecodeBoundsµÄ¶ÔÏó£©
-     * @param minSideLength ×î¶Ì±ß³¤£¬Ê¹ÓÃ{@link #UNCONSTRAINED}±íÊ¾²»Ö¸¶¨
-     * @param maxNumOfPixels ×î´óÏñËØÖµ
-     * @return Ëõ·Å±ÈÀı£¨N·ÖÖ®Ò»£©
+     * æ ¹æ®å›¾åƒçš„å±æ€§å’Œæœ€å¤§åƒç´ å€¼ï¼Œç²¾ç¡®è®¡ç®—è¦ç¼©æ”¾çš„å›¾åƒçš„æ¯”ä¾‹
+     * @param options å›¾åƒçš„è®¾ç½®å±æ€§ï¼ˆå·²DecodeBoundsçš„å¯¹è±¡ï¼‰
+     * @param minSideLength æœ€çŸ­è¾¹é•¿ï¼Œä½¿ç”¨{@link #UNCONSTRAINED}è¡¨ç¤ºä¸æŒ‡å®š
+     * @param maxNumOfPixels æœ€å¤§åƒç´ å€¼
+     * @return ç¼©æ”¾æ¯”ä¾‹ï¼ˆNåˆ†ä¹‹ä¸€ï¼‰
      */
     public static int computeSampleSize(BitmapFactory.Options options,
     		int minSideLength, int maxNumOfPixels) {
@@ -438,13 +438,13 @@ public class BitmapUtils {
     }
     
     /**
-     * <p>¸ù¾İÍ¼ÏñµÄÊôĞÔºÍ×î´óÏñËØÖµ£¬¾«È·¼ÆËãÒªËõ·ÅµÄÍ¼ÏñµÄ±ÈÀı</p>
-     * <p>ËµÃ÷£º¸Ã¶Î´úÂë´ÓÏµÍ³CameraÔ´ÂëÖĞÌáÈ¡</p>
-     * @param width Í¼ÏñµÄ¿í¶È
-     * @param height Í¼ÏñµÄ¸ß¶È
-     * @param minSideLength ×î¶Ì±ß³¤£¬Ê¹ÓÃ{@link #UNCONSTRAINED}±íÊ¾²»Ö¸¶¨
-     * @param maxNumOfPixels ×î´óÏñËØÖµ
-     * @return Ëõ·Å±ÈÀı£¨N·ÖÖ®Ò»£©
+     * <p>æ ¹æ®å›¾åƒçš„å±æ€§å’Œæœ€å¤§åƒç´ å€¼ï¼Œç²¾ç¡®è®¡ç®—è¦ç¼©æ”¾çš„å›¾åƒçš„æ¯”ä¾‹</p>
+     * <p>è¯´æ˜ï¼šè¯¥æ®µä»£ç ä»ç³»ç»ŸCameraæºç ä¸­æå–</p>
+     * @param width å›¾åƒçš„å®½åº¦
+     * @param height å›¾åƒçš„é«˜åº¦
+     * @param minSideLength æœ€çŸ­è¾¹é•¿ï¼Œä½¿ç”¨{@link #UNCONSTRAINED}è¡¨ç¤ºä¸æŒ‡å®š
+     * @param maxNumOfPixels æœ€å¤§åƒç´ å€¼
+     * @return ç¼©æ”¾æ¯”ä¾‹ï¼ˆNåˆ†ä¹‹ä¸€ï¼‰
      */
     public static int computeSampleSize(int width, int height,
             int minSideLength, int maxNumOfPixels) {
@@ -505,9 +505,9 @@ public class BitmapUtils {
     
     
     /**
-     * ¸ù¾İÖ¸¶¨µÄÍ¼ÏñÎÄ¼ş£¬¶ÈÁ¿Í¼ÏñÎÄ¼şµÄ³ß´ç
-     * @param filePath Í¼ÏñÎÄ¼şµÄÂ·¾¶
-     * @param rect ´æ·Å¿í¶ÈºÍ¸ß¶ÈÊı¾İµÄ¶ÔÏó£¬²»ÄÜÎª¿Õ
+     * æ ¹æ®æŒ‡å®šçš„å›¾åƒæ–‡ä»¶ï¼Œåº¦é‡å›¾åƒæ–‡ä»¶çš„å°ºå¯¸
+     * @param filePath å›¾åƒæ–‡ä»¶çš„è·¯å¾„
+     * @param rect å­˜æ”¾å®½åº¦å’Œé«˜åº¦æ•°æ®çš„å¯¹è±¡ï¼Œä¸èƒ½ä¸ºç©º
      */
     public static void measureImageSize(String filePath, android.graphics.Rect rect) {
         if (filePath == null || filePath.length() == 0) {
@@ -532,9 +532,9 @@ public class BitmapUtils {
     }
     
     /**
-     * ¸ù¾İÖ¸¶¨µÄÍ¼ÏñÊı¾İ£¬¶ÈÁ¿Í¼ÏñµÄ³ß´ç
-     * @param imageBytes Í¼ÏñµÄÊı¾İµÄ×Ö½ÚÊı×é
-     * @param rect ´æ·Å¿í¶ÈºÍ¸ß¶ÈÊı¾İµÄ¶ÔÏó£¬²»ÄÜÎª¿Õ
+     * æ ¹æ®æŒ‡å®šçš„å›¾åƒæ•°æ®ï¼Œåº¦é‡å›¾åƒçš„å°ºå¯¸
+     * @param imageBytes å›¾åƒçš„æ•°æ®çš„å­—èŠ‚æ•°ç»„
+     * @param rect å­˜æ”¾å®½åº¦å’Œé«˜åº¦æ•°æ®çš„å¯¹è±¡ï¼Œä¸èƒ½ä¸ºç©º
      */
     public static void measureImageSize(byte[] imageBytes, android.graphics.Rect rect) {
         if (imageBytes == null || imageBytes.length == 0) {
@@ -558,9 +558,9 @@ public class BitmapUtils {
     }
     
     /**
-     * ¸ù¾İÖ¸¶¨µÄÍ¼ÏñÊı¾İ£¬¶ÈÁ¿Í¼ÏñÎÄ¼şµÄ³ß´ç
-     * @param is Í¼ÏñÎÄ¼şµÄÊı¾İÊäÈëÁ÷
-     * @param rect ´æ·Å¿í¶ÈºÍ¸ß¶ÈÊı¾İµÄ¶ÔÏó£¬²»ÄÜÎª¿Õ
+     * æ ¹æ®æŒ‡å®šçš„å›¾åƒæ•°æ®ï¼Œåº¦é‡å›¾åƒæ–‡ä»¶çš„å°ºå¯¸
+     * @param is å›¾åƒæ–‡ä»¶çš„æ•°æ®è¾“å…¥æµ
+     * @param rect å­˜æ”¾å®½åº¦å’Œé«˜åº¦æ•°æ®çš„å¯¹è±¡ï¼Œä¸èƒ½ä¸ºç©º
      */
     public static void measureImageSize(InputStream is, android.graphics.Rect rect) {
         if (is == null) {
