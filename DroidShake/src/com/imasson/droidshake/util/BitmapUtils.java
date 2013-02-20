@@ -1,9 +1,14 @@
 ﻿package com.imasson.droidshake.util;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.TextUtils;
 import android.util.Log;
 
 /**
@@ -581,5 +586,113 @@ public class BitmapUtils {
         }
 
         rect.set(0, 0, options.outWidth, options.outHeight);
+    }
+    
+    
+    /**
+     * 对位图对象采用<b>PNG</b>格式进行无损压缩，并保存到指定文件
+     * @param bitmap 需要压缩的位图对象，不能为空
+     * @param filePath 要保存的图像文件的路径，不能为空。
+     *若要让图片文件可见，请采用 <code>.png</code> 后缀
+     * @return 是否成功执行
+     */
+    public static boolean saveBitmap(Bitmap bitmap, String filePath) {
+    	return saveBitmap(bitmap, filePath, Bitmap.CompressFormat.PNG, 100);
+    }
+    
+    /**
+     * 对位图对象进行压缩，并保存到指定文件
+     * @param bitmap 需要压缩的位图对象，不能为空
+     * @param filePath 要保存的图像文件的路径，不能为空。
+     *若要让图片文件可见，请采用与 <code>format</code> 参数相匹配的后缀
+     * @param format 压缩的格式
+     * @param quality 压缩的质量 [0,100]
+     * @return 是否成功执行
+     */
+    public static boolean saveBitmap(Bitmap bitmap, String filePath, 
+    		Bitmap.CompressFormat format, int quality) {
+        if (bitmap == null) {
+            Log.w(TAG, "Argument 'bitmap' is null " +
+            		"at saveBitmap(Bitmap, String, CompressFormat, int)");
+            return false;
+        }
+        if (TextUtils.isEmpty(filePath)) {
+        	Log.w(TAG, "Argument 'filePath' is null or empty " +
+            		"at saveBitmap(Bitmap, String, CompressFormat, int)");
+            return false;
+        }
+
+        FileOutputStream fos = null;
+        BufferedOutputStream bos = null;
+        try {
+            File imageFile = new File(filePath);
+            imageFile.createNewFile();
+
+            fos = new FileOutputStream(imageFile);
+            bos = new BufferedOutputStream(fos);
+
+            bitmap.compress(format, quality, bos);
+
+            bos.flush();
+            fos.flush();
+        } catch (Exception e) {
+            Log.w(TAG, "Error on compressing and saving bitmap " +
+            		"at saveBitmap(Bitmap, String, CompressFormat, int)", e);
+            return false;
+        } finally {
+    		try {
+    			if (bos != null) bos.close();
+    			if (fos != null) fos.close();
+			} catch (Exception e) {}
+        }
+
+        return true;
+    }
+    
+    
+    /**
+     * 对位图对象采用<b>PNG</b>格式进行无损压缩，输出字节数组
+     * @param bitmap 需要压缩的位图对象，不能为空
+     * @return 压缩后的图像字节数组，如果失败将返回null
+     */
+    public static byte[] compressBitmap(Bitmap bitmap) {
+    	return compressBitmap(bitmap, Bitmap.CompressFormat.PNG, 100);
+    }
+    
+    /**
+     * 对位图对象进行压缩，输出字节数组
+     * @param bitmap 需要压缩的位图对象，不能为空
+     * @param format 压缩的格式
+     * @param quality 压缩的质量 [0,100]
+     * @return 压缩后的图像字节数组，如果失败将返回null
+     */
+    public static byte[] compressBitmap(Bitmap bitmap, 
+    		Bitmap.CompressFormat format, int quality) {
+        if (bitmap == null) {
+            Log.w(TAG, "Argument 'bitmap' is null " +
+            		"at compressBitmap(Bitmap, CompressFormat, int)");
+            return null;
+        }
+
+        byte[] output = null;
+        ByteArrayOutputStream baos = null;
+        try {
+            baos = new ByteArrayOutputStream(1024 * 8);  // FIXME used FileUtils' value
+
+            bitmap.compress(format, quality, baos);
+
+            baos.flush();
+            output = baos.toByteArray();
+        } catch (Exception e) {
+            Log.w(TAG, "Error on compressing bitmap " +
+            		"at compressBitmap(Bitmap, CompressFormat, int)", e);
+            return null;
+        } finally {
+        	try {
+    			if (baos != null) baos.close();
+			} catch (Exception e) {}
+        }
+
+        return output;
     }
 }
