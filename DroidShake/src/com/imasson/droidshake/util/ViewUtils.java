@@ -1,17 +1,24 @@
 package com.imasson.droidshake.util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.View;
+import android.view.View.MeasureSpec;
+import android.view.Window;
 
 /**
  * <p>提供与视图相关的操作的工具类</p>
  * <p>目前支持的特性如下：</p>
  * <ul>
- * <li>进行dp、px等单位的数值转换</li>
+ * <li>进行dp、px等尺寸单位的数值转换</li>
  * <li>对视图或窗口进行截图</li>
  * </ul>
+ * @version 1.0 包含尺寸单位转换以及对视图进行截图的方法
  */
 public class ViewUtils {
 	private static final String TAG = "ViewUtils";
@@ -105,5 +112,96 @@ public class ViewUtils {
 			return value / (metrics.xdpi * (1.0f / 25.4f));
 		}
 		return 0;
+	}
+	
+	
+	/**
+	 * <p>对指定的视图进行截图，输出位图</p>
+	 * <p>该方法针对已经嵌入到界面，并且已经布局完毕的视图进行截图。
+	 * 若视图是单独初始化的，则需要使用{@link #makeSnapshot(View, int, int)}。</p>
+	 * @param view 需要截图的视图，该试图必须已经布局完毕
+	 * @return 该视图当前状态的截图
+	 */
+	public static Bitmap makeSnapshot(View view) {
+		if (view == null) {
+			Log.w(TAG, "Argument 'view' is null at makeSnapshot(View)");
+			return null;
+		}
+		
+		int width = view.getWidth();
+		int height = view.getHeight();
+		
+		if (width <= 0 || height <= 0) {
+			Log.w(TAG, "The size of the view is invalid at makeSnapshot(View)");
+			return null;
+		}
+		
+		Bitmap snapshot = null;
+		try {
+			snapshot = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(snapshot);
+            view.draw(canvas);
+		} catch (OutOfMemoryError er) {
+			Log.w(TAG, "OutOfMemoryError at makeSnapshot(View)", er);
+		} catch (Exception e) {
+			Log.w(TAG, "Exception at makeSnapshot(View)", e);
+		}
+		
+		return snapshot;
+	}
+	
+	/**
+	 * <p>对指定的视图进行截图，输出位图</p>
+	 * <p>对于单独初始化，且没有加入到其他界面的视图使用此方法。需要指定其宽度和高度，
+	 *本方法会自动对视图进行布局，再进行截图。</p>
+	 * <p>但对于已经嵌入到界面中的视图，不推荐使用本方法，调用本方法后该试图可能因为
+	 *布局大小变化导致界面异常。对于此类视图请使用{@link #makeSnapshot(View)}。</p>
+	 * @param view 需要截图的视图
+	 * @param expectedWidht 视图的期望宽度，截图时会根据此宽度布局目标视图
+	 * @param expectedHeight 视图的期望高度，截图时会根据此高度布局目标视图
+	 * @return 该视图当前状态的截图
+	 */
+	public static Bitmap makeSnapshot(View view, int expectedWidht, int expectedHeight) {
+		if (view == null) {
+			Log.w(TAG, "Argument 'view' is null at makeSnapshot(View, int, int)");
+			return null;
+		}
+		if (expectedWidht <= 0 || expectedHeight <= 0) {
+			Log.w(TAG, "Arguemnt 'expectedWidht' and 'expectedHeight' must > 0");
+			return null;
+		}
+		
+		int widthSpec = MeasureSpec.makeMeasureSpec(expectedWidht, MeasureSpec.EXACTLY);
+		int heightSpec = MeasureSpec.makeMeasureSpec(expectedHeight, MeasureSpec.EXACTLY);
+		view.measure(widthSpec, heightSpec);
+		view.layout(0, 0, expectedWidht, expectedHeight);
+		
+		return makeSnapshot(view);
+	}
+	
+	/**
+	 * 对指定的{@link Activity}进行截图，输出位图
+	 * @param activity 需要截图的{@link Activity}，该界面必须已经布局完毕
+	 * @return 该视图当前状态的截图
+	 */
+	public static Bitmap makeSnapshot(Activity activity) {
+		if (activity == null) {
+			Log.w(TAG, "Argument 'activity' is null at makeSnapshot(Activity)");
+			return null;
+		}
+		return makeSnapshot(activity.getWindow());
+	}
+	
+	/**
+	 * 对指定的{@link Window}进行截图，输出位图
+	 * @param window 需要截图的{@link Window}，该窗口必须已经布局完毕
+	 * @return 该窗口当前状态的截图
+	 */
+	public static Bitmap makeSnapshot(Window window) {
+		if (window == null) {
+			Log.w(TAG, "Argument 'window' is null at makeSnapshot(Window)");
+			return null;
+		}
+		return makeSnapshot(window.getDecorView());
 	}
 }
