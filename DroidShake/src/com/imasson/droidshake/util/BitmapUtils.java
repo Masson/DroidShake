@@ -677,7 +677,7 @@ public class BitmapUtils {
         byte[] output = null;
         ByteArrayOutputStream baos = null;
         try {
-            baos = new ByteArrayOutputStream(1024 * 8);  // FIXME used FileUtils' value
+            baos = new ByteArrayOutputStream(FileUtils.DEFAULT_BUFFER_SIZE);
 
             bitmap.compress(format, quality, baos);
 
