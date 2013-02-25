@@ -23,14 +23,34 @@ import android.view.Window;
 public class ViewUtils {
 	private static final String TAG = "ViewUtils";
 	
+	/**
+	 * 根据当前设备的像素密度，把dip单位的值转换为像素值。
+	 * 该值用于表示偏移或距离，换算时舍去小数点后的值
+	 * @param dip 需要转换的dip单位的值
+	 * @param context 上下文对象，不能为空
+	 * @return 对应的像素值，换算时舍去小数点后的值
+	 */
 	public static int dipToPixelOffset(float dip, Context context) {
 		return dimensionToPixelOffset(TypedValue.COMPLEX_UNIT_DIP, dip, context);
 	}
 	
+	/**
+	 * 根据当前设备的像素密度，把dip单位的值转换为像素值。
+	 * 该值用于表示宽高或大小，换算时对小数点后的值四舍五入
+	 * @param dip 需要转换的dip单位的值
+	 * @param context 上下文对象，不能为空
+	 * @return 对应的像素值，换算时对小数点后的值四舍五入
+	 */
 	public static int dipToPixelSize(float dip, Context context) {
 		return dimensionToPixelSize(TypedValue.COMPLEX_UNIT_DIP, dip, context);
 	}
 	
+	/**
+	 * 根据当前设备的像素密度，把像素值转换为dip值
+	 * @param pixel 需要转换的像素值
+	 * @param context 上下文对象，不能为空
+	 * @return 对应的dip单位的值
+	 */
 	public static float pixelToDip(int pixel, Context context) {
 		if (context == null) {
 			Log.w(TAG, "Argument 'context' is null at pixelToDip(int, Context)");
@@ -41,6 +61,14 @@ public class ViewUtils {
 		return pixelToDimensionStrictly(TypedValue.COMPLEX_UNIT_DIP, pixel, metrics);
 	}
 	
+	/**
+	 * 根据当前设备的像素密度，把指定单位的值转换为像素值。
+	 * 该值用于表示偏移或距离，换算时舍去小数点后的值
+	 * @param unit 输入值的单位，参考{@link TypedValue}中 <code>COMPLEX_UNIT_</code> 开头的常量
+	 * @param dimension 需要转换的该单位下的值
+	 * @param context 上下文对象，不能为空
+	 * @return 对应的像素值，换算时舍去小数点后的值
+	 */
 	public static int dimensionToPixelOffset(int unit, float dimension, Context context) {
 		if (context == null) {
 			Log.w(TAG, "Argument 'context' is null at dimensionToPixelOffset(int, int, Context)");
@@ -52,6 +80,14 @@ public class ViewUtils {
 		return (int) strictValue;
 	}
 	
+	/**
+	 * 根据当前设备的像素密度，把指定单位的值转换为像素值。
+	 * 该值用于表示宽高或大小，换算时对小数点后的值四舍五入
+	 * @param unit 输入值的单位，参考{@link TypedValue}中 <code>COMPLEX_UNIT_</code> 开头的常量
+	 * @param dimension 需要转换的该单位下的值
+	 * @param context 上下文对象，不能为空
+	 * @return 对应的像素值，换算时对小数点后的值四舍五入
+	 */
 	public static int dimensionToPixelSize(int unit, float dimension, Context context) {
 		if (context == null) {
 			Log.w(TAG, "Argument 'context' is null at dimensionToPixelOffset(int, int, Context)");
@@ -67,6 +103,14 @@ public class ViewUtils {
         return -1;
 	}
 	
+	/**
+	 * 根据当前设备的像素密度，把指定单位的值转换为另一个单位的值
+	 * @param unitFrom 输入值的单位，参考{@link TypedValue}中 <code>COMPLEX_UNIT_</code> 开头的常量
+	 * @param unitTo 输出值的单位，参考{@link TypedValue}中 <code>COMPLEX_UNIT_</code> 开头的常量
+	 * @param value 需要转换的输入单位下的值
+	 * @param context 上下文对象，不能为空
+	 * @return 对应的输出单位下的值
+	 */
 	public static float convertDimension(int unitFrom, int unitTo, float value, Context context) {
 		if (context == null) {
 			Log.w(TAG, "Argument 'context' is null at convertDimension(int, int, float, Context)");
