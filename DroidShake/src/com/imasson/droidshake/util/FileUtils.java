@@ -156,6 +156,63 @@ public final class FileUtils {
 	
 	
 	/**
+     * 检查文件是否存在
+     * @param path 文件的路径
+     * @return 文件是否存在
+     */
+    public static boolean isFileExist(String path) {
+        if (!TextUtils.isEmpty(path)) {
+        	Log.w(TAG, "Argument 'path' is null or empty at checkExist(String)");
+            return false;
+        }
+        
+        try {
+            File file = new File(path);
+            return file.exists();
+        } catch (Exception e) {
+        	Log.w(TAG, "Unexpected exception at checkExist(String), path=" + path, e);
+        	return false;
+        }
+    }
+    
+    /**
+     * 检查并建立指定的目录
+     * @param dirPath 目录的路径
+     * @return 是否已经建立了目录
+     */
+    public static boolean mkdirIfNotFound(String dirPath) {
+    	if (!TextUtils.isEmpty(dirPath)) {
+        	Log.w(TAG, "Argument 'dirPath' is null or empty at mkdirIfNotFound(String)");
+            return false;
+        }
+    	
+        try {
+            File dir = new File(dirPath);
+            if (dir.mkdirs() == false) {
+				Log.i(TAG, "The folder is already exist. path=" + dirPath);
+			}
+            return true;
+        } catch (Exception e) {
+            Log.w(TAG, "Unexpected exception at mkdirIfNotFound(String). path=" + dirPath, e);
+            return false;
+        }
+    }
+    
+    /**
+     * 删除指定的路径的文件
+     * @param filePath 文件的路径
+     */
+    public static void deleteFile(String filePath) {
+    	try {
+			File file = new File(filePath);
+			file.delete();
+		} catch (Exception e) {
+			Log.w(TAG, "Exception at deleteFile(String). path=" + filePath, e);
+		}
+    }
+	
+	
+	/**
 	 * <p>读取指定路径的文本文件，转换成整块字符串，包含换行符</p>
 	 * <p><b>注意：</b>仅可以读取小文件，读取大文件的话有可能会造成OOM</p>
 	 * @param path 文件的完整路径
