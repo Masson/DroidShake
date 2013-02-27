@@ -23,7 +23,7 @@ import android.util.Log;
  * 
  * @version 1.0 包含多种Bitmap读取和保存方式的工具方法
  */
-public class BitmapUtils {
+public final class BitmapUtils {
 	private static final String TAG = "BitmapUtil";
 	
 	/**

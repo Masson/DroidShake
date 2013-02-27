@@ -7,7 +7,7 @@ import android.graphics.Color;
  * 
  * @version 1.0 包含透明度修改和调整颜色亮度的工具方法
  */
-public class ColorUtils {
+public final class ColorUtils {
 	
 	/**
 	 * 更改颜色值的透明度
