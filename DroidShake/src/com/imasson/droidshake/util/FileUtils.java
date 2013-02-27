@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -134,7 +136,7 @@ public final class FileUtils {
 		
 		File file = new File(path);
 		if (!file.exists()) {
-			Log.w(TAG, "Target path doesn't exist, path=" + path);
+			Log.w(TAG, "The target path doesn't exist, path=" + path);
 			return 0;
 		}
 		
@@ -175,6 +177,7 @@ public final class FileUtils {
         }
     }
     
+    
     /**
      * 检查并建立指定的目录
      * @param dirPath 目录的路径
@@ -191,25 +194,344 @@ public final class FileUtils {
             if (dir.mkdirs() == false) {
 				Log.i(TAG, "The folder is already exist. path=" + dirPath);
 			}
-            return true;
+            return dir.isDirectory();
         } catch (Exception e) {
             Log.w(TAG, "Unexpected exception at mkdirIfNotFound(String). path=" + dirPath, e);
             return false;
         }
     }
     
+    
     /**
-     * 删除指定的路径的文件
+     * 删除单个指定路径的文件
      * @param filePath 文件的路径
+     * @return 是否成功删除
      */
-    public static void deleteFile(String filePath) {
+    public static boolean deleteFile(String filePath) {
+    	if (TextUtils.isEmpty(filePath)) {
+			Log.w(TAG, "Argument 'filePath' is null or empty at deleteFile(String)");
+			return false;
+		}
+    	
     	try {
 			File file = new File(filePath);
-			file.delete();
+			return file.delete();
 		} catch (Exception e) {
 			Log.w(TAG, "Exception at deleteFile(String). path=" + filePath, e);
+			return false;
 		}
     }
+    
+    /**
+     * 递归删除指定路径的目录及其下的文件和子目录
+     * @param dirPath 要删除的目录的路径
+     * @return 是否成功删除
+     */
+    public static boolean deleteDir(String dirPath) {
+    	if (TextUtils.isEmpty(dirPath)) {
+			Log.w(TAG, "Argument 'dirPath' is null or empty at deleteDir(String)");
+			return false;
+		}
+    	
+    	try {
+			File dir = new File(dirPath);
+			if (!dir.exists() || !dir.isDirectory()) {
+				Log.w(TAG, "The target path does not exist or not a directory. path=" + dirPath);
+				return false;
+			}
+			
+			return deleteDir(dir);  // 递归清空目录中的文件及子目录
+		} catch (Exception e) {
+			Log.w(TAG, "Exception at deleteDir(String), dirPath=" + dirPath, e);
+			return false;
+		}
+    }
+    
+    private static boolean deleteDir(File dir) {
+    	if (dir == null) {
+    		return false;
+    	}
+    	
+    	boolean result = true;
+    	File[] files = dir.listFiles();
+    	if (files != null) {
+	    	for (File file : files) {
+	    		boolean hasSuccess = true;
+				if (file.isDirectory()) {
+					hasSuccess = deleteDir(file);
+				} else {
+					hasSuccess = file.delete();
+				}
+				if (!hasSuccess) {
+					result = false;
+				}
+			}
+    	}
+    	
+    	if (dir.delete() == false) {
+    		result = false;
+    	}
+    	
+    	return result;
+    }
+    
+    
+    /**
+	 * 复制单个指定文件到指定的路径
+	 * @param srcPath 要复制的文件的路径
+	 * @param dstPath 目标路径（需要包含文件名）
+	 * @return 是否成功复制
+	 */
+	public static boolean copyFile(String srcPath, String dstPath) {
+		if (TextUtils.isEmpty(srcPath)) {
+			Log.w(TAG, "Argument 'srcPath' is null or empty at copyFile(String, String)");
+			return false;
+		}
+		if (TextUtils.isEmpty(dstPath)) {
+			Log.w(TAG, "Argument 'dstPath' is null or empty at copyFile(String, String)");
+			return false;
+		}
+		
+		InputStream is = null;
+		FileOutputStream fos = null;
+		try {
+			File srcfile = new File(srcPath);
+			if (!srcfile.exists()) {
+				Log.w(TAG, "The source file doesn't exist. srcPath=" + srcPath);
+				return false;
+			}
+			
+			is = new FileInputStream(srcPath);  // 读入原文件
+			fos = new FileOutputStream(dstPath);
+			byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+			
+			int byteread = 0;
+			while ((byteread = is.read(buffer)) != -1) {
+				fos.write(buffer, 0, byteread);
+			}
+			fos.flush();
+			
+			return true;
+		} catch (Exception e) {
+			Log.w(TAG, "Exception at copyFile(String, String), srcPath=" + srcPath, e);
+			return false;
+		} finally {
+			try {
+				if (is != null) is.close();
+				if (fos != null) fos.close();
+			} catch (Exception e) {}
+		}
+	}
+	
+	private static boolean copyFile(File srcFile, File dstFile) throws Exception {
+		if (srcFile == null || dstFile == null) {
+    		return false;
+    	}
+		
+		InputStream is = null;
+		FileOutputStream fos = null;
+		try {
+			is = new FileInputStream(srcFile);  // 读入原文件
+			fos = new FileOutputStream(dstFile);
+			byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+			
+			int byteread = 0;
+			while ((byteread = is.read(buffer)) != -1) {
+				fos.write(buffer, 0, byteread);
+			}
+			fos.flush();
+			
+			return true;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			try {
+				if (is != null) is.close();
+				if (fos != null) fos.close();
+			} catch (Exception e) {}
+		}
+	}
+	
+	/**
+     * 复制单个指定文件到指定的目录下
+     * @param srcPath 要复制的文件的路径
+     * @param dstDirPath 目标目录的路径，如不存在会自动创建
+     * @return 是否成功复制
+     */
+    public static boolean copyFileTo(String srcPath, String dstDirPath) {
+    	if (TextUtils.isEmpty(dstDirPath)) {
+			Log.w(TAG, "Argument 'dstDirPath' is null or empty at copyFileTo(String, String)");
+			return false;
+		}
+    	
+    	File srcFile = new File(srcPath);
+    	if (!srcFile.exists()) {
+    		Log.w(TAG, "The source file doesn't exist. srcPath=" + srcPath);
+			return false;
+		}
+    	
+    	if (mkdirIfNotFound(dstDirPath) == false) {
+    		Log.w(TAG, "The target dir can't be created. dstDirPath=" + dstDirPath);
+    	}
+    	
+    	try {
+    		File dstFile = new File(dstDirPath, srcFile.getName());
+    		return copyFile(srcFile, dstFile);
+		} catch (Exception e) {
+			Log.w(TAG, "Exception at copyFileTo(String, String)", e);
+			return false;
+		}
+    }
+    
+	
+	/**
+	 * 递归复制指定目录中的所有文件和子目录（不包括自己）到指定的路径
+	 * @param srcPath 被复制的目录的路径
+	 * @param dstPath 目标目标的路径（需要包含目录的名称）
+	 * @return 是否成功复制
+	 */
+	public static boolean copyDir(String srcPath, String dstPath) {
+		if (TextUtils.isEmpty(srcPath)) {
+			Log.w(TAG, "Argument 'srcPath' is null or empty at copyDir(String, String)");
+			return false;
+		}
+		if (TextUtils.isEmpty(dstPath)) {
+			Log.w(TAG, "Argument 'dstPath' is null or empty at copyDir(String, String)");
+			return false;
+		}
+		
+		try {
+			File srcDir = new File(srcPath);
+			if (!srcDir.exists() || !srcDir.isDirectory()) {
+				Log.w(TAG, "The source path doesn't exist or not a directory. srcPath=" + srcPath);
+				return false;
+			}
+			
+			return copyDir(srcDir, new File(dstPath));  // 递归复制目录中的文件及子目录
+		} catch (Exception e) {
+			Log.w(TAG, "Exception at copyDir(String, String), srcPath=" + srcPath, e);
+			return false;
+		}
+	}
+	
+	private static boolean copyDir(File srcDir, File dstDir) throws Exception {
+		if (srcDir == null || dstDir == null) {
+    		return false;
+    	}
+		
+		if (!dstDir.exists()) {
+			dstDir.mkdirs();
+		}
+		if (!dstDir.isDirectory()) {
+			return false;
+		}
+		
+		boolean result = true;
+    	File[] files = srcDir.listFiles();
+    	if (files != null) {
+	    	for (File file : files) {
+	    		boolean hasSuccess = true;
+	    		File targetFile = new File(dstDir, file.getName());
+				if (file.isDirectory()) {
+					hasSuccess = copyDir(file, targetFile);
+				} else {
+					hasSuccess = copyFile(file, targetFile);
+				}
+				if (!hasSuccess) {
+					result = false;
+				}
+			}
+    	}
+    	
+    	return result;
+	}
+	
+	/**
+     * 递归复制指定的整个目录（包含自己及其所有文件和子目录）到指定的目录下
+     * @param srcPath 要复制的目录的路径
+     * @param dstDirPath 目标目录的路径，如不存在会自动创建
+     * @return 是否成功复制
+     */
+    public static boolean copyDirTo(String srcDirPath, String dstDirPath) {
+    	if (TextUtils.isEmpty(srcDirPath)) {
+			Log.w(TAG, "Argument 'srcDirPath' is null or empty at copyDirTo(String, String)");
+			return false;
+		}
+    	if (TextUtils.isEmpty(dstDirPath)) {
+			Log.w(TAG, "Argument 'dstDirPath' is null or empty at copyDirTo(String, String)");
+			return false;
+		}
+    	
+    	File srcFile = new File(srcDirPath);
+    	if (!srcFile.isDirectory()) {
+    		Log.w(TAG, "The source dir doesn't exist. srcDirPath=" + srcDirPath);
+			return false;
+		}
+    	
+    	File dstFile = new File(dstDirPath, srcFile.getName());
+    	return copyDir(srcDirPath, dstFile.getAbsolutePath());
+    }
+    
+    
+    /**
+	 * 移动单个指定文件到指定的路径
+	 * @param srcPath 要移动的文件的路径
+	 * @param dstPath 目标路径（需要包含文件名）
+	 * @return 是否成功移动
+	 */
+    public static boolean moveFile(String srcPath, String dstPath) {
+    	boolean hasSuccess = false;
+    	hasSuccess = copyFile(srcPath, dstPath);
+    	if (hasSuccess) {
+    		hasSuccess = deleteFile(srcPath);
+    	}
+    	return hasSuccess;
+	}
+    
+    /**
+     * 移动单个指定文件到指定的目录下
+     * @param srcPath 要移动的文件的路径
+     * @param dstDirPath 目标目录的路径，如不存在会自动创建
+     * @return 是否成功移动
+     */
+    public static boolean moveFileTo(String srcPath, String dstDirPath) {
+    	boolean hasSuccess = false;
+    	hasSuccess = copyFileTo(srcPath, dstDirPath);
+    	if (hasSuccess) {
+    		hasSuccess = deleteFile(srcPath);
+    	}
+    	return hasSuccess;
+	}
+    
+    /**
+	 * 移动指定目录中的有文件和子目录（不包括自己）到指定的路径，移动后该目录也会被删除
+	 * @param srcPath 要移动的目录的路径
+	 * @param dstPath 目标目标的路径（需要包含目录的名称）
+	 * @return 是否成功移动
+	 */
+    public static boolean moveDir(String srcPath, String dstPath) {
+    	boolean hasSuccess = false;
+    	hasSuccess = copyDir(srcPath, dstPath);
+    	if (hasSuccess) {
+    		hasSuccess = deleteDir(srcPath);
+    	}
+    	return hasSuccess;
+	}
+    
+    /**
+     * 移动指定的整个目录（包含自己及其所有文件和子目录）到指定的目录下
+     * @param srcPath 要移动的目录的路径
+     * @param dstDirPath 目标目录的路径，如不存在会自动创建
+     * @return 是否成功复制
+     */
+    public static boolean moveDirTo(String srcPath, String dstPath) {
+    	boolean hasSuccess = false;
+    	hasSuccess = copyDirTo(srcPath, dstPath);
+    	if (hasSuccess) {
+    		hasSuccess = deleteDir(srcPath);
+    	}
+    	return hasSuccess;
+	}
 	
 	
 	/**
@@ -226,7 +548,7 @@ public final class FileUtils {
 		
 		File file = new File(path);
 		if (!file.exists() || !file.isFile()) {
-			Log.w(TAG, "Target file not exist at readStringLines(), path=" + path);
+			Log.w(TAG, "The target file not exist at readStringLines(), path=" + path);
 			return null;
 		}
 		
@@ -269,7 +591,7 @@ public final class FileUtils {
 		
 		File file = new File(path);
 		if (!file.exists() || !file.isFile()) {
-			Log.w(TAG, "Target file not exist at readStringLines(), path=" + path);
+			Log.w(TAG, "The target file not exist at readStringLines(), path=" + path);
 			return null;
 		}
 		
@@ -312,7 +634,7 @@ public final class FileUtils {
 		
 		File file = new File(path);
 		if (!file.exists() || !file.isFile()) {
-			Log.w(TAG, "Target file not exist at readBytes(), path=" + path);
+			Log.w(TAG, "The target file not exist at readBytes(), path=" + path);
 			return null;
 		}
 		
