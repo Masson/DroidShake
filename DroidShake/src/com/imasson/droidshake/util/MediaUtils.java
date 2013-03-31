@@ -7,13 +7,15 @@ import android.os.Environment;
 import android.util.Log;
 
 /**
- * 与媒体相关的工具类
+ * <p>与媒体相关的工具类</p>
+ * 
+ * @version 1.0 包含请求进行媒体扫描的相关方法
  */
 public class MediaUtils {
 	private static final String TAG = "MediaUtils";
 	
     /**
-     * 调用媒体扫描服务扫描整个外部存储器</br>
+     * 请求媒体扫描服务扫描整个外部存储器</br>
      * 建议采用{@link #requestScanMediaFile(Context, String)}来扫描指定文件以提高效率
      * @param context 上下文对象
      */
@@ -29,7 +31,7 @@ public class MediaUtils {
     }
     
     /**
-     * 调用媒体扫描服务扫描指定的图像文件
+     * 请求媒体扫描服务扫描指定的图像文件
      * @param context 上下文对象
      * @param filePath 指定的图像文件的完全路径，不需要包含"<code>file://</code>"的前缀
      */
