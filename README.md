@@ -38,11 +38,12 @@ ShakeViews控件表计划
 ShakeToolkit工具集计划
 ---------------------------
 * BitmapUtils - 1.0 用于进行位图对象的编解码、图像的读取和保存等操作的工具类 (from local)
-* ViewUtils
-* FileUtils
+* ViewUtils - 1.0 包含尺寸单位转换以及对视图进行截图的方法
+* MediaUtils - 1.0 与媒体相关的工具类
+* FileUtils - 1.0 包含多种通用文件操作的方法
 * FileSearcher
 * NetworkUtils
 * DownloadTask
-* ShakeLinkify
+* ShakeLinkify - 1.0 提供针对中文增强的文字内超链接识别功能的工具类
 * ColorUtils - 1.0 包含透明度修改和调整颜色亮度的工具方法 (from local)
 
