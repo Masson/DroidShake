@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -17,8 +18,10 @@ import android.view.Window;
  * <ul>
  * <li>进行dp、px等尺寸单位的数值转换</li>
  * <li>对视图或窗口进行截图</li>
+ * <li>在API Level小于14的编译环境下，对指定界面启用硬件加速</li>
  * </ul>
  * @version 1.0 包含尺寸单位转换以及对视图进行截图的方法
+ * @version 1.1 增加开启硬件加速的方法
  */
 public class ViewUtils {
 	private static final String TAG = "ViewUtils";
@@ -248,4 +251,54 @@ public class ViewUtils {
 		}
 		return makeSnapshot(window.getDecorView());
 	}
+	
+	
+	/**
+     * 对指定的界面启用硬件加速，注意当前设备的API Level必须大于或等于14
+     * @param activity 要硬件加速的界面
+     */
+    public static void enableHardwareAccelerated(Activity activity) {
+    	if (activity == null) {
+			Log.w(TAG, "Argument 'activity' is null at enableHardwareAccelerate()");
+			return;
+		}
+		
+    	if (android.os.Build.VERSION.SDK_INT < 14) {
+    		Log.w(TAG, "SDK level must >= 14 on enableHardwareAccelerate()");
+    		return;
+    	}
+    	
+    	activity.getWindow().setFlags(
+    			/*FLAG_HARDWARE_ACCELERATED=*/ 0x01000000, 
+    			/*FLAG_HARDWARE_ACCELERATED=*/ 0x01000000);
+    }
+    
+    /**
+     * 对指定的界面启用硬件加速，注意当前设备的API Level必须大于或等于14
+     * @param view 要硬件加速的视图
+     */
+    public static void enableHardwareAccelerate(View view) {
+    	if (view == null) {
+			Log.w(TAG, "Argument 'view' is null at enableHardwareAccelerate()");
+			return;
+		}
+		
+    	if (android.os.Build.VERSION.SDK_INT < 14) {
+    		Log.w(TAG, "SDK level must >= 14 on enableHardwareAccelerate");
+    		return;
+    	}
+    	
+    	try {
+			java.lang.reflect.Method method = View.class.getMethod("setLayerType", int.class, Paint.class);
+			method.invoke(view, /*LAYER_TYPE_HARDWARE=*/2, (Paint) null);
+			
+		} catch (java.lang.reflect.InvocationTargetException e) {
+			Log.w(TAG, "Method setLayerType exception at enableHardwareAccelerate()", e);
+		} catch (Exception e) {
+			Log.w(TAG, "Unexpect exception at enableHardwareAccelerate()", e);
+		}
+    }
+    
+    
+    private ViewUtils() {}
 }
