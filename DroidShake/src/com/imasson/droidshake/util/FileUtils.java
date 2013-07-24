@@ -26,7 +26,7 @@ import android.util.Log;
  * </ul>
  * <p>该工具类已对各种可能出现的异常作了封装和保护</p>
  * 
- * @version 1.0 包含多种通用文件操作及Zip文件操作的方法
+ * @version 1.0 包含多种通用文件操作的方法
  */
 public final class FileUtils {
 	private static final String TAG = "FileUtil";
@@ -664,4 +664,7 @@ public final class FileUtils {
 		
 		return baos.toByteArray();
 	}
+	
+	
+	private FileUtils() { }
 }
