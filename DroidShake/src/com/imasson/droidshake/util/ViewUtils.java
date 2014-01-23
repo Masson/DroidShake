@@ -161,6 +161,59 @@ public class ViewUtils {
 		return 0;
 	}
 	
+
+    /**
+     * 平板设备屏幕的最低宽度。
+     * 根据google规范，7寸屏幕为xlarge屏幕，至少需要 960dp x 720dp 大小的分辨率
+     * @see <a href="http://developer.android.com/guide/practices/screens_support.html">Supporting Multiple Screens</a>
+     */
+    private static final int THRESHOLD_TABLET_WIDTH_DP = 960;
+
+    /**
+     * 判断当前设备是不是平板
+     * @param context 上下文对象，不能为空
+     * @return 当前设备是不是平板
+     */
+    public static boolean isTablet(Context context) {
+        if (context == null) {
+            Log.w(TAG, "Argument 'context' is null at isTablet(Context)");
+            return false;
+        }
+
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        int thresholdWidth = dipToPixelSize(THRESHOLD_TABLET_WIDTH_DP, context);
+        int deviceWidth = Math.max(metrics.widthPixels, metrics.heightPixels);
+        if (deviceWidth >= thresholdWidth) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 宽屏的最小屏幕比例
+     */
+    private static final float THRESHOLD_WIDESCREEN_ASPECT = 1.5f;
+
+    /**
+     * 判断当前设备是不是宽屏幕
+     * @param context 上下文对象，不能为空
+     * @return 当前设备是不是宽屏幕
+     */
+    public static boolean isWideScreen(Context context) {
+        if (context == null) {
+            Log.w(TAG, "Argument 'context' is null at isWideScreen(Context)");
+            return false;
+        }
+
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        int widthPixels = Math.max(metrics.widthPixels, metrics.heightPixels);
+        int heightPixels = Math.min(metrics.widthPixels, metrics.heightPixels);
+        if ((float)widthPixels / heightPixels >= THRESHOLD_WIDESCREEN_ASPECT) {
+            return true;
+        }
+        return false;
+    }
+	
 	
 	/**
 	 * <p>对指定的视图进行截图，输出位图</p>
